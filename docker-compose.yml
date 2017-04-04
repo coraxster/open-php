@@ -1,0 +1,38 @@
+version: "2"
+services:
+
+  mssql:
+    image: microsoft/mssql-server-linux
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123
+
+  php56:
+    build: 
+      context: ./56
+      dockerfile: Dockerfile
+    tty: true
+    links:
+     - mssql:db
+    volumes:
+     - .:/app
+
+  php71:
+    build: 
+      context: ./71
+      dockerfile: Dockerfile
+    tty: true
+    links:
+     - mssql:db
+    volumes:
+     - .:/app
+
+  nginx:
+    image: nginx
+    links: 
+     - php71:php
+    volumes:
+     - .:/app
+     - ./nginx:/etc/nginx/conf.d
+    ports:
+     - 80:80
