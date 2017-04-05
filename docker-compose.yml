@@ -9,7 +9,7 @@ services:
 
   php56:
     build: 
-      context: ./56
+      context: ./_56
       dockerfile: Dockerfile
     tty: true
     links:
@@ -19,7 +19,7 @@ services:
 
   php71:
     build: 
-      context: ./71
+      context: ./_71
       dockerfile: Dockerfile
     tty: true
     links:
