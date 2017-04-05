@@ -44,7 +44,7 @@ RUN apt-get install -y --no-install-recommends \
 RUN docker-php-ext-install mcrypt && \
     #comment xdebug for prod
 	pecl install xdebug && docker-php-ext-enable xdebug && \
-	pecl install zip && docker-php-ext-enable zip && \
+	docker-php-ext-install zip && \
 	pecl install memcached-2.2.0 && docker-php-ext-enable memcached && \
 	docker-php-ext-install tokenizer && \
   	docker-php-ext-install pdo_mysql && \

@@ -45,7 +45,7 @@ RUN pecl channel-update pecl.php.net
 RUN docker-php-ext-install mcrypt && \
 	#comment xdebug for prod
 	pecl install xdebug && docker-php-ext-enable xdebug && \
-	pecl install zip && docker-php-ext-enable zip && \
+	docker-php-ext-install zip && \
 	docker-php-ext-install tokenizer && \
   	docker-php-ext-install pdo_mysql && \
   	docker-php-ext-configure gd \
