@@ -7,20 +7,28 @@ RUN DEBIAN_FRONTEND=noninteractive \
 	apt-get -y install software-properties-common
 
 #-------------MSSQL---------------
-RUN echo "deb http://ftp.debian.org/debian/ testing non-free contrib main" >> /etc/apt/sources.list
-RUN apt-get update
-RUN apt-get -y install tdsodbc php7.0-sybase 
-# libsybdb5 мы соберём сами
-RUN apt-get -y install gcc
-RUN apt-get -y install build-essential
-ADD freetds-patched.tar /temp/
-RUN cd /temp/freetds-1.00.27 && \
-	./configure --enable-msdblib --prefix=/usr/local && \
-	make && \
-	make install
-RUN docker-php-ext-install pdo_dblib
-#уберём за собой
-RUN sed -i '$ d' /etc/apt/sources.list
+# RUN echo "deb http://ftp.debian.org/debian/ testing non-free contrib main" >> /etc/apt/sources.list
+# RUN apt-get update
+# RUN apt-get -y install tdsodbc php7.0-sybase 
+# # libsybdb5 мы соберём сами
+# RUN apt-get -y install gcc
+# RUN apt-get -y install build-essential
+# ADD freetds-patched.tar /temp/
+# RUN cd /temp/freetds-1.00.27 && \
+# 	./configure --enable-msdblib --prefix=/usr/local && \
+# 	make && \
+# 	make install
+# RUN docker-php-ext-install pdo_dblib
+# #уберём за собой
+# RUN sed -i '$ d' /etc/apt/sources.list
+
+#-------------MSSQL---------------
+RUN echo "\r\n deb http://ftp.de.debian.org/debian/ sid main" >> /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get -y install freetds-common freetds-bin unixodbc php7.1-sybase && \
+    cp /usr/lib/php/20160303/pdo_dblib.so /usr/local/lib/php/extensions/no-debug-non-zts-20160303/ && \
+    cp /etc/php/7.1/mods-available/pdo_dblib.ini /usr/local/etc/php/conf.d/ && \
+    sed -i '$ d' /etc/apt/sources.list
 
 #-------------LDAP---------------
 
