@@ -34,7 +34,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
 ##---------------MSSQL----------------
     echo "\r\n deb http://ftp.de.debian.org/debian/ sid main" >> /etc/apt/sources.list && \
     apt-get update && \
-    apt-get -y install tdsodbc php7.1-sybase install gcc build-essential
+    apt-get -y install tdsodbc php7.1-sybase gcc build-essential
 # libsybdb5 мы соберём сами
 
 ADD freetds-patched.tar /temp/
